@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FestivalTrack — PID</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a class="nav-brand" href="index.html">FestivalTrack</a>
+        <ul class="nav-links">
+            <li><a href="index.html">PID</a></li>
+            <li><a href="sad.html">SAD</a></li>
+            <li><a href="metodologia.html">Metodología</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <p class="hero-eyebrow">Documento de Inicio de Proyecto</p>
+        <h1>Sistema de Agenda Cultural para el Festival José Alfredo Jiménez</h1>
+        <p>Aplicación Android desarrollada en Kotlin/Java mediante arquitectura API-first para la gestión de boletos,
+            programación y legado cultural del festival.</p>
+        <div class="badge-row">
+            <span class="badge">Android Studio</span>
+            <span class="badge">Kotlin / Java</span>
+            <span class="badge">API REST</span>
+            <span class="badge">MVVM</span>
+            <span class="badge">v1.0.0</span>
+        </div>
+    </div>
+
+    <main>
+        <nav class="doc-nav">
+            <a href="#contexto">Contexto</a>
+            <a href="#glosario">Glosario</a>
+            <a href="#historias">Historias de Usuario</a>
+            <a href="#restricciones">Objetivos y Restricciones</a>
+        </nav>
+
+        <!-- CONTEXTO -->
+        <section id="contexto">
+            <p class="section-label">01 — Inicio</p>
+            <h2 class="section-title">Visión y Contexto del Negocio</h2>
+            <p>Los asistentes y seguidores del Festival José Alfredo Jiménez carecen de una plataforma digital unificada
+                para consultar la programación, adquirir boletos y explorar el legado cultural del cantautor
+                guanajuatense.</p>
+            <p><strong>FestivalTrack</strong> resuelve esta brecha ofreciendo una aplicación Android nativa que
+                centraliza todas las interacciones del usuario con el festival. Como contexto, el sistema forma parte de
+                un ecosistema multiplataforma más amplio que contempla wearable y Smart TV; sin embargo, el presente
+                proyecto se enfoca en el desarrollo de la aplicación principal.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Problema</h3>
+                    <p>Sin portal unificado para boletos, programación y contenido del festival.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👤</div>
+                    <h3>Usuario Final</h3>
+                    <p>Asistente presencial, aficionado remoto y administrador del festival.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏛️</div>
+                    <h3>Importancia</h3>
+                    <p>Modernizar el alcance digital del festival y preservar el legado cultural del artista.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>Plataforma</h3>
+                    <p>Aplicación Android nativa — Android Studio con Kotlin y Java.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- GLOSARIO -->
+        <section id="glosario">
+            <p class="section-label">02 — Definiciones</p>
+            <h2 class="section-title">Glosario de Términos</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Término</th>
+                            <th>Definición</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>FestivalTrack</code></td>
+                            <td>Nombre de la plataforma. La aplicación Android es su componente principal de acceso al
+                                usuario.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Activity</code></td>
+                            <td>Unidad básica de pantalla en Android, equivalente a una "página" de la aplicación.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Fragment</code></td>
+                            <td>Componente reutilizable de UI que vive dentro de una Activity.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Retrofit</code></td>
+                            <td>Librería Kotlin/Java para consumir APIs REST desde Android de forma tipada.</td>
+                        </tr>
+                        <tr>
+                            <td><code>WebView</code></td>
+                            <td>Componente Android que renderiza contenido web dentro de la app nativa si se requiere.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>Código QR</code></td>
+                            <td>Token visual generado tras compra exitosa de boleto, usado para acceso al recinto del
+                                festival.</td>
+                        </tr>
+                        <tr>
+                            <td><code>HLS Adaptativo</code></td>
+                            <td>Protocolo de streaming de video que ajusta la calidad según el ancho de banda
+                                disponible.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Panel Admin</code></td>
+                            <td>Módulo exclusivo para gestores del festival: sube canciones, imágenes y administra
+                                usuarios.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Mausoleo</code></td>
+                            <td>Escenario principal del festival ubicado en Dolores Hidalgo, Guanajuato.</td>
+                        </tr>
+                        <tr>
+                            <td><code>MVVM</code></td>
+                            <td>Patrón de arquitectura Model-View-ViewModel, estándar recomendado por Google para
+                                Android.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- HISTORIAS DE USUARIO -->
+        <section id="historias">
+            <p class="section-label">03 — Requerimientos</p>
+            <h2 class="section-title">Historias de Usuario — Product Backlog Inicial</h2>
+
+            <div class="story">
+                <p><strong>HU-01 · Registro de Usuario</strong><br>
+                    Como visitante, quiero registrarme con correo y contraseña desde la app para acceder a todas las
+                    funciones del festival.</p>
+                <p class="story-criteria">La Activity de registro crea la cuenta y redirige al Home sin errores de
+                    validación.</p>
+            </div>
+
+            <div class="story">
+                <p><strong>HU-02 · Compra de Boletos</strong><br>
+                    Como usuario registrado, quiero comprar boletos seleccionando fecha, categoría y asiento para
+                    garantizar mi acceso al evento.</p>
+                <p class="story-criteria">Se genera y muestra un código QR válido tras completar el pago a través de la
+                    pasarela segura.</p>
+            </div>
+
+            <div class="story">
+                <p><strong>HU-03 · Biografía Interactiva</strong><br>
+                    Como aficionado, quiero explorar la biografía de José Alfredo Jiménez con fotos, audios y línea de
+                    tiempo para conocer su legado.</p>
+                <p class="story-criteria">El Fragment de biografía carga galería, textos y reproductores de audio sin
+                    errores en menos de 3 segundos.</p>
+            </div>
+
+            <div class="story">
+                <p><strong>HU-04 · Transmisión en Vivo</strong><br>
+                    Como espectador remoto, quiero ver la transmisión en vivo del festival desde la app para disfrutarlo
+                    desde casa.</p>
+                <p class="story-criteria">El stream HLS inicia en menos de 5 segundos con calidad mínima 720p mediante
+                    ExoPlayer.</p>
+            </div>
+
+            <div class="story">
+                <p><strong>HU-05 · Panel de Administración</strong><br>
+                    Como administrador, quiero subir canciones e imágenes desde el panel para mantener el contenido del
+                    festival actualizado.</p>
+                <p class="story-criteria">Los archivos se suben correctamente, se asocian a la sección correspondiente y
+                    son visibles en la app de inmediato.</p>
+            </div>
+        </section>
+
+        <!-- RESTRICCIONES -->
+        <section id="restricciones">
+            <p class="section-label">04 — Alcance</p>
+            <h2 class="section-title">Objetivos y Restricciones</h2>
+            <ul class="milestone-list">
+                <li><span class="ms-dot"></span>
+                    <div><span class="ms-label">Milestone 1 —</span> PID + SAD publicado y accesible en GitHub Pages.
+                    </div>
+                </li>
+                <li><span class="ms-dot"></span>
+                    <div><span class="ms-label">Milestone 2 —</span> App Android funcional con autenticación, boletos y
+                        sección de biografía.</div>
+                </li>
+                <li><span class="ms-dot"></span>
+                    <div><span class="ms-label">Milestone 3 —</span> Módulo de streaming en vivo y panel de
+                        administración integrados.</div>
+                </li>
+                <li><span class="ms-dot"></span>
+                    <div><span class="ms-label">Compatibilidad —</span> Android API Level 26+ (Android 8.0 en adelante).
+                    </div>
+                </li>
+                <li><span class="ms-dot"></span>
+                    <div><span class="ms-label">Seguridad —</span> JWT para autenticación, HTTPS obligatorio en todas
+                        las llamadas a la API.</div>
+                </li>
+                <li><span class="ms-dot"></span>
+                    <div><span class="ms-label">Disponibilidad —</span> Backend 24/7 con reconexión automática ante
+                        pérdida de señal.</div>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <span>FestivalTrack</span>
+        <span>Juan Gustavo Ángel · Omar Salinas · Noé Chavero — UTNG 2026</span>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FestivalTrack — Metodología</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a class="nav-brand" href="index.html">FestivalTrack</a>
+        <ul class="nav-links">
+            <li><a href="index.html">PID</a></li>
+            <li><a href="sad.html">SAD</a></li>
+            <li><a href="metodologia.html">Metodología</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <p class="hero-eyebrow">Justificación de la Metodología</p>
+        <h1>Scrum como Marco de Trabajo para FestivalTrack</h1>
+        <p>Fundamentos técnicos y estratégicos que justifican la elección de Scrum como metodología de desarrollo del
+            proyecto.</p>
+        <div class="badge-row">
+            <span class="badge">Scrum</span>
+            <span class="badge">3 Integrantes</span>
+            <span class="badge">Sprints de 2 semanas</span>
+            <span class="badge">GitHub Projects</span>
+        </div>
+    </div>
+
+    <main>
+        <nav class="doc-nav">
+            <a href="#justificacion">Justificación</a>
+            <a href="#scrum">Estructura Scrum</a>
+            <a href="#herramienta">Herramienta de Gestión</a>
+            <a href="#equipo">Equipo y Roles</a>
+        </nav>
+
+        <!-- JUSTIFICACIÓN -->
+        <section id="justificacion">
+            <p class="section-label">01 — Decisión</p>
+            <h2 class="section-title">Justificación de la Metodología</h2>
+            <blockquote>
+                "Para este proyecto se ha seleccionado la metodología <strong>Scrum</strong> debido a que la naturaleza
+                de sus requisitos es <strong>cambiante y evolutiva</strong> — múltiples módulos Android (autenticación,
+                boletos, streaming, biografía y administración) se desarrollan iterativamente — lo que exige un enfoque
+                que priorice <strong>la flexibilidad y las entregas parciales</strong>. Esta elección mitiga el riesgo
+                tecnológico al adaptarse a un nivel de incertidumbre <strong>alto</strong> (integración de Retrofit,
+                ExoPlayer y pasarela de pago), se alinea con la disponibilidad del cliente para recibir feedback de
+                forma <strong>continua</strong> y optimiza la dinámica de un equipo de <strong>3 integrantes</strong>
+                mediante el uso de <strong>GitHub Projects</strong> para la gestión visual de tareas y roles."
+            </blockquote>
+            <div class="card-grid" style="margin-top:1.5rem;">
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <h3>Requisitos Evolutivos</h3>
+                    <p>La integración de streaming, pagos y contenido multimedia genera descubrimientos técnicos que
+                        Scrum absorbe naturalmente en cada sprint.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚠️</div>
+                    <h3>Incertidumbre Alta</h3>
+                    <p>Tecnologías nuevas como ExoPlayer HLS y pasarela de pago requieren iteración rápida y
+                        retroalimentación continua del cliente.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Feedback Continuo</h3>
+                    <p>El cliente del festival puede validar cada módulo (boletos, streaming, biografía) al final de
+                        cada sprint de 2 semanas.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>Equipo Pequeño</h3>
+                    <p>Con 3 integrantes, Scrum ofrece estructura suficiente sin la overhead burocrática de metodologías
+                        más pesadas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ESTRUCTURA SCRUM -->
+        <section id="scrum">
+            <p class="section-label">02 — Marco de Trabajo</p>
+            <h2 class="section-title">Estructura del Proceso Scrum</h2>
+            <ul class="milestone-list">
+                <li>
+                    <span class="ms-dot"></span>
+                    <div><span class="ms-label">Product Backlog —</span> Lista priorizada de todas las Historias de
+                        Usuario (HU-01 a HU-05). El Product Owner refina y reprioriza entre sprints según el feedback
+                        recibido.</div>
+                </li>
+                <li>
+                    <span class="ms-dot"></span>
+                    <div><span class="ms-label">Sprint Planning —</span> Al inicio de cada sprint (2 semanas), el equipo
+                        selecciona las historias a completar y define las tareas técnicas en Android Studio / Kotlin.
+                    </div>
+                </li>
+                <li>
+                    <span class="ms-dot"></span>
+                    <div><span class="ms-label">Daily Standup —</span> Reunión diaria de 15 minutos: ¿qué hice ayer?,
+                        ¿qué haré hoy?, ¿hay algún bloqueo? Coordinación del equipo de 3 personas.</div>
+                </li>
+                <li>
+                    <span class="ms-dot"></span>
+                    <div><span class="ms-label">Sprint Review —</span> Demo funcional del módulo Android completado al
+                        cliente/docente al final de cada sprint. El incremento debe ser usable y desplegable.</div>
+                </li>
+                <li>
+                    <span class="ms-dot"></span>
+                    <div><span class="ms-label">Sprint Retrospective —</span> Análisis interno del equipo: qué salió
+                        bien, qué mejorar técnicamente y en la dinámica de trabajo.</div>
+                </li>
+            </ul>
+
+            <div class="table-wrap" style="margin-top:1.5rem;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sprint</th>
+                            <th>Objetivo</th>
+                            <th>Entregable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sprint 0</td>
+                            <td>Setup del proyecto</td>
+                            <td>Repo GitHub, estructura MVVM, GitHub Pages con PID + SAD.</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 1</td>
+                            <td>Autenticación</td>
+                            <td>Login, Registro y sesión persistente con JWT.</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 2</td>
+                            <td>Boletos y QR</td>
+                            <td>Flujo de compra completo y generación de código QR.</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 3</td>
+                            <td>Biografía Interactiva</td>
+                            <td>Galería, línea de tiempo y reproductor de audio.</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 4</td>
+                            <td>Streaming en Vivo</td>
+                            <td>Reproductor ExoPlayer con HLS del mausoleo.</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 5</td>
+                            <td>Panel de Administración</td>
+                            <td>Módulo de subida de canciones e imágenes.</td>
+                        </tr>
+                        <tr>
+                            <td>Sprint 6</td>
+                            <td>Cierre y QA</td>
+                            <td>Pruebas unitarias ≥80%, ajustes de UX y entrega final.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- HERRAMIENTA -->
+        <section id="herramienta">
+            <p class="section-label">03 — Gestión</p>
+            <h2 class="section-title">Herramienta de Gestión — GitHub Projects</h2>
+            <p>El equipo utilizará <strong>GitHub Projects</strong> como tablero Kanban para la gestión visual de
+                tareas, vinculando cada issue directamente con los commits y pull requests del repositorio.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">📋</div>
+                    <h3>Columnas del Tablero</h3>
+                    <p><strong>Backlog → En Progreso → En Revisión → Completado</strong></p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔗</div>
+                    <h3>Integración con Git</h3>
+                    <p>Cada issue se cierra automáticamente al hacer merge del PR correspondiente en la rama
+                        <code>main</code>.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏷️</div>
+                    <h3>Etiquetas</h3>
+                    <p>Labels por módulo: <code>auth</code>, <code>boletos</code>, <code>streaming</code>,
+                        <code>biografia</code>, <code>admin</code>, <code>bug</code>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EQUIPO -->
+        <section id="equipo">
+            <p class="section-label">04 — Roles</p>
+            <h2 class="section-title">Equipo y Roles Scrum</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Integrante</th>
+                            <th>Rol Scrum</th>
+                            <th>Responsabilidad Principal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Juan Gustavo Ángel Cruz Méndez</td>
+                            <td>Scrum Master / Dev</td>
+                            <td>Arquitectura MVVM, integración API REST con Retrofit, coordinación de sprints.</td>
+                        </tr>
+                        <tr>
+                            <td>Omar Salinas Salinas</td>
+                            <td>Product Owner / Dev</td>
+                            <td>Gestión del backlog, módulo de boletos y sistema de pagos.</td>
+                        </tr>
+                        <tr>
+                            <td>Noé Chavero Martínez</td>
+                            <td>Developer</td>
+                            <td>Streaming con ExoPlayer, galería biográfica y panel de administración.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <span>FestivalTrack — Metodología v1.0</span>
+        <span>Juan Gustavo Ángel · Omar Salinas · Noé Chavero — UTNG 2026</span>
+    </footer>
+
+</body>
+
+</html>

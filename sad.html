@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FestivalTrack — SAD</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <nav>
+        <a class="nav-brand" href="index.html">FestivalTrack</a>
+        <ul class="nav-links">
+            <li><a href="index.html">PID</a></li>
+            <li><a href="sad.html">SAD</a></li>
+            <li><a href="metodologia.html">Metodología</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <p class="hero-eyebrow">Documento de Arquitectura de Software</p>
+        <h1>Arquitectura Técnica del Sistema FestivalTrack</h1>
+        <p>Diseño arquitectónico de la aplicación Android, definición del stack tecnológico y especificación de
+            atributos de calidad del sistema.</p>
+        <div class="badge-row">
+            <span class="badge">MVVM</span>
+            <span class="badge">API REST</span>
+            <span class="badge">Node.js 20 LTS</span>
+            <span class="badge">PostgreSQL 16</span>
+            <span class="badge">ExoPlayer HLS</span>
+        </div>
+    </div>
+
+    <main>
+        <nav class="doc-nav">
+            <a href="#intro">Introducción</a>
+            <a href="#nfr">Atributos de Calidad</a>
+            <a href="#arquitectura">Vista Lógica</a>
+            <a href="#stack">Stack Tecnológico</a>
+        </nav>
+
+        <!-- INTRO -->
+        <section id="intro">
+            <p class="section-label">01 — Propósito</p>
+            <h2 class="section-title">Introducción y Objetivos Técnicos</h2>
+            <blockquote>
+                "Desarrollar una aplicación Android con Kotlin/Java que actúe como cliente principal del sistema
+                FestivalTrack, consumiendo una API REST para la gestión de agenda cultural, venta de boletos y streaming
+                en vivo del Festival José Alfredo Jiménez."
+            </blockquote>
+            <p>El sistema se estructura como una aplicación cliente-servidor: la app Android consume una API REST
+                backend desplegada en Railway, con PostgreSQL como base de datos principal y Redis para gestión de
+                sesiones y caché. El streaming en vivo se entrega mediante protocolo HLS adaptativo a través de
+                ExoPlayer.</p>
+            <p>El proyecto es el componente web/móvil de un ecosistema multiplataforma más amplio que contempla también
+                dispositivos wearable y Smart TV.</p>
+        </section>
+
+        <!-- NFR -->
+        <section id="nfr">
+            <p class="section-label">02 — Calidad</p>
+            <h2 class="section-title">Requerimientos No Funcionales</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <h3>Escalabilidad</h3>
+                    <p>Mínimo 1,000 usuarios concurrentes durante transmisiones en vivo sin degradación del servicio.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⏱️</div>
+                    <h3>Disponibilidad</h3>
+                    <p>Uptime 24/7 con reconexión automática ante pérdida de señal. SLA objetivo: 99.5%.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔐</div>
+                    <h3>Seguridad</h3>
+                    <p>Autenticación JWT, HTTPS obligatorio, pasarela de pago cifrada y permisos declarados en
+                        <code>AndroidManifest.xml</code>.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔧</div>
+                    <h3>Mantenibilidad</h3>
+                    <p>Arquitectura MVVM, cobertura de pruebas unitarias mínima del 80%, código documentado con KDoc.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>Compatibilidad</h3>
+                    <p>Android API Level 26+ (Android 8.0). Diseño responsivo adaptado a diferentes tamaños de pantalla.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Rendimiento</h3>
+                    <p>Latencia WebSocket &lt; 1 segundo. Stream HLS inicia en menos de 5 segundos. Carga de pantallas
+                        &lt; 3 segundos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARQUITECTURA -->
+        <section id="arquitectura">
+            <p class="section-label">03 — Estructura</p>
+            <h2 class="section-title">Vista Lógica — Arquitectura MVVM</h2>
+            <p>El proyecto implementa el patrón <strong>MVVM (Model-View-ViewModel)</strong>, estándar recomendado por
+                Google para aplicaciones Android modernas. La separación de capas permite testear la lógica de negocio
+                de forma independiente a la UI.</p>
+            <div class="arch-box"><span class="hl">┌─────────────────────────────────────────────┐
+                    │ UI LAYER │
+                    │ <span class="node">Activities / Fragments / Jetpack Compose</span> │
+                    └────────────────┬────────────────────────────┘
+                    │ observa LiveData / StateFlow
+                    ▼
+                    ┌─────────────────────────────────────────────┐
+                    │ VIEWMODEL LAYER │
+                    │ <span class="node">AuthViewModel · BoletoViewModel</span> │
+                    │ <span class="node">BiografiaViewModel · StreamViewModel</span> │
+                    └────────────────┬────────────────────────────┘
+                    │ solicita datos
+                    ▼
+                    ┌─────────────────────────────────────────────┐
+                    │ REPOSITORY LAYER │
+                    └──────────┬──────────────────┬───────────────┘
+                    │ │
+                    ▼ ▼
+                    <span class="node">┌──────────────┐ ┌──────────────┐</span>
+                    <span class="node">│ Retrofit │ │ Room DB │</span>
+                    <span class="node">│ (API REST) │ │(caché local) │</span>
+                    <span class="node">└──────┬───────┘ └──────────────┘</span>
+                    │
+                    ▼
+                    ┌─────────────────────────────────────────────┐
+                    │ BACKEND — Node.js + TypeScript │
+                    │ <span class="node">API REST · WebSocket · HLS Server</span> │
+                    └───────┬──────────────┬──────────────────────┘
+                    │ │
+                    ▼ ▼
+                    <span class="node">┌──────────┐ ┌──────────┐</span>
+                    <span class="node">│PostgreSQL│ │ Redis │</span>
+                    <span class="node">│(datos) │ │(sesiones)│</span>
+                    <span class="node">└──────────┘ └──────────┘</span></span></div>
+        </section>
+
+        <!-- STACK -->
+        <section id="stack">
+            <p class="section-label">04 — Tecnologías</p>
+            <h2 class="section-title">Stack Tecnológico Autorizado</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capa / Componente</th>
+                            <th>Tecnología</th>
+                            <th>Versión</th>
+                            <th>Razón de Elección</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>IDE</td>
+                            <td>Android Studio</td>
+                            <td>Ladybug 2024.x</td>
+                            <td>Entorno oficial para desarrollo Android nativo.</td>
+                        </tr>
+                        <tr>
+                            <td>Lenguaje Principal</td>
+                            <td>Kotlin</td>
+                            <td>2.x</td>
+                            <td>Lenguaje moderno, conciso y con soporte oficial de Google.</td>
+                        </tr>
+                        <tr>
+                            <td>Lenguaje Secundario</td>
+                            <td>Java</td>
+                            <td>17 LTS</td>
+                            <td>Compatibilidad con librerías legacy y componentes existentes.</td>
+                        </tr>
+                        <tr>
+                            <td>Arquitectura UI</td>
+                            <td>MVVM + Jetpack</td>
+                            <td>—</td>
+                            <td>Estándar Google; separa lógica de negocio de la interfaz.</td>
+                        </tr>
+                        <tr>
+                            <td>Navegación</td>
+                            <td>Navigation Component</td>
+                            <td>2.7.x</td>
+                            <td>Gestión segura y tipada de Fragments y Activities.</td>
+                        </tr>
+                        <tr>
+                            <td>Llamadas API</td>
+                            <td>Retrofit + OkHttp</td>
+                            <td>2.9.x</td>
+                            <td>Consumo de API REST eficiente con soporte Kotlin Coroutines.</td>
+                        </tr>
+                        <tr>
+                            <td>Caché Local</td>
+                            <td>Room Database</td>
+                            <td>2.6.x</td>
+                            <td>Persistencia offline del contenido del festival.</td>
+                        </tr>
+                        <tr>
+                            <td>Streaming</td>
+                            <td>ExoPlayer (HLS)</td>
+                            <td>3.x</td>
+                            <td>Reproducción HLS adaptativa; usado por YouTube y Netflix.</td>
+                        </tr>
+                        <tr>
+                            <td>Imágenes</td>
+                            <td>Glide</td>
+                            <td>4.x</td>
+                            <td>Carga eficiente y con caché de galería fotográfica.</td>
+                        </tr>
+                        <tr>
+                            <td>Autenticación</td>
+                            <td>JWT + HTTPS</td>
+                            <td>—</td>
+                            <td>Seguridad estándar en sesiones y comunicaciones.</td>
+                        </tr>
+                        <tr>
+                            <td>Backend</td>
+                            <td>Node.js + TypeScript</td>
+                            <td>20.x LTS</td>
+                            <td>Agilidad de desarrollo con tipado fuerte.</td>
+                        </tr>
+                        <tr>
+                            <td>Base de Datos</td>
+                            <td>PostgreSQL</td>
+                            <td>16.x</td>
+                            <td>Soporte robusto de transacciones ACID para boletos.</td>
+                        </tr>
+                        <tr>
+                            <td>Caché Servidor</td>
+                            <td>Redis</td>
+                            <td>7.x</td>
+                            <td>Gestión de sesiones y colas de notificaciones rápidas.</td>
+                        </tr>
+                        <tr>
+                            <td>Contenedores</td>
+                            <td>Docker</td>
+                            <td>Última LTS</td>
+                            <td>Homogeneidad entre entornos locales y producción.</td>
+                        </tr>
+                        <tr>
+                            <td>Despliegue Backend</td>
+                            <td>Railway</td>
+                            <td>—</td>
+                            <td>CI/CD continuo del servidor con despliegue desde GitHub.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <span>FestivalTrack — SAD v1.0</span>
+        <span>Juan Gustavo Ángel · Omar Salinas · Noé Chavero — UTNG 2026</span>
+    </footer>
+
+</body>
+
+</html>
